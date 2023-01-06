@@ -1,25 +1,26 @@
 import superagent from "superagent"
 import { expect } from "chai"
+import { url } from "../constants/url"
 
 describe("Create API requests", () => {
     it("get: get all posts", async () => {
-        const res = await superagent.get("https://jsonplaceholder.typicode.com/posts")
+        const res = await superagent.get(url.allPosts)
         expect(res.status).equal(200)
     });
 
     it("get: get a post", async () => {
-        const res = await superagent.get("https://jsonplaceholder.typicode.com/posts/1")
+        const res = await superagent.get(url.postFirst)
         expect(res.status).equal(200)
     });
 
     it("get: get comments for a post", async () => {
-        const res = await superagent.get("https://jsonplaceholder.typicode.com/posts/1/comments")
+        const res = await superagent.get(url.commentsPostFirst)
         expect(res.status).equal(200)
     });
 
     it("post: create a post", async () => {
         const res = await superagent
-            .post("https://jsonplaceholder.typicode.com/posts")
+            .post(url.allPosts)
             .set("Content-Type", "application/json")
             .send({
                 title: "some title comes here",
@@ -32,7 +33,7 @@ describe("Create API requests", () => {
 
     it("post: create a comment", async () => {
         const res = await superagent
-            .post("https://jsonplaceholder.typicode.com/posts/1/comments")
+            .post(url.commentsPostFirst)
             .set("Content-Type", "application/json")
             .send({
                 name: "some name for a comment",
@@ -47,7 +48,7 @@ describe("Create API requests", () => {
 
     it("patch: update title for a post", async () => {
         const res = await superagent
-            .patch("https://jsonplaceholder.typicode.com/posts/1")
+            .patch(url.postFirst)
             .set("Content-Type", "application/json")
             .send({
                 title: "new title",
@@ -58,7 +59,7 @@ describe("Create API requests", () => {
 
     it("patch: update email for a comment", async () => {
         const res = await superagent
-            .patch("https://jsonplaceholder.typicode.com/comments/500")
+            .patch(url.comment)
             .set("Content-Type", "application/json")
             .send({
                 email: "updated_email@gmail.com",
@@ -69,7 +70,7 @@ describe("Create API requests", () => {
 
     it("put: update a post", async () => {
         const res = await superagent
-            .put("https://jsonplaceholder.typicode.com/posts/1")
+            .put(url.postFirst)
             .set("Content-Type", "application/json")
             .send({
                 title: "new updated title",
@@ -82,7 +83,7 @@ describe("Create API requests", () => {
 
     it("put: update a comment", async () => {
         const res = await superagent
-            .put("https://jsonplaceholder.typicode.com/comments/500")
+            .put(url.comment)
             .set("Content-Type", "application/json")
             .send({
                 name: "new updated name for a comment",
@@ -96,12 +97,12 @@ describe("Create API requests", () => {
     });
 
     it("delete: delete a post", async () => {
-        const res = await superagent.delete("https://jsonplaceholder.typicode.com/posts/1")
+        const res = await superagent.delete(url.postFirst)
         expect(res.status).equal(200)
     });
 
     it("delete: delete a comment", async () => {
-        const res = await superagent.delete("https://jsonplaceholder.typicode.com/comments/500")
+        const res = await superagent.delete(url.comment)
         expect(res.status).equal(200)
     })
 
